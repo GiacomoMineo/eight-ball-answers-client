@@ -1,5 +1,6 @@
 import HttpClient, { HttpRequestMethods } from './api/HttpClient'
 import singleton from 'singleton'
+import queryString from 'query-string'
 
 class ApiService extends singleton {
   constructor () {
@@ -17,7 +18,13 @@ class ApiService extends singleton {
 
     const requestOptions = Object.assign(defaultOptions, options)
 
-    return this.httpClient.send(url, method, requestOptions.headers, content, requestOptions.json)
+    return this.httpClient.send(
+      url,
+      method,
+      requestOptions.headers,
+      content,
+      requestOptions.json
+    )
   }
 
   postQuestion (questionText) {
@@ -27,6 +34,18 @@ class ApiService extends singleton {
     }
 
     return this.request(requestUrl, HttpRequestMethods.post, requestContent)
+  }
+
+  getDailyStats (from, to) {
+    const requestContent = {
+      from: from,
+      to: to
+    }
+    const requestUrl = `${
+      this.apiUrl
+    }/api/statistics/question?${queryString.stringify(requestContent)}`
+
+    return this.request(requestUrl, HttpRequestMethods.get, requestContent)
   }
 }
 

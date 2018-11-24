@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Game from './Game'
 import ApiService from '../../services/ApiService'
+import moment from 'moment'
 
 export default class GameContainer extends Component {
   constructor (props) {
@@ -8,12 +9,35 @@ export default class GameContainer extends Component {
 
     this.state = {
       questionText: '',
-      answerText: null,
-      loadingAnswer: false
+      outputText: null,
+      loadingAnswer: false,
+      hasErrors: false
     }
 
     this.onSubmit = this.onSubmit.bind(this)
     this.onChangeValue = this.onChangeValue.bind(this)
+
+    this.fetchStatistics = this.fetchStatistics.bind(this)
+  }
+
+  componentDidMount () {
+    this.fetchStatistics()
+  }
+
+  async fetchStatistics () {
+    let hasErrors = false
+
+    try {
+      const partitionDate = parseInt(moment().format('YYYYMMDD'))
+
+      const result = await ApiService.getDailyStats(partitionDate, partitionDate)
+      console.log(result)
+    } catch (err) {
+      hasErrors = true
+    }
+
+    if (hasErrors) {
+    }
   }
 
   onChangeValue (event) {
@@ -23,12 +47,22 @@ export default class GameContainer extends Component {
   async onSubmit () {
     let hasErrors = false
 
+    const { questionText } = this.state
+
+    if (!questionText) {
+      this.setState({
+        outputText: 'Please insert a question.',
+        hasErrors: true
+      })
+      return
+    }
+
     this.setState({
-      errorMessage: null,
+      outputText: null,
+      hasErrors: false,
       loadingAnswer: true
     })
 
-    const { questionText } = this.state
     let response = null
     try {
       response = await ApiService.postQuestion(questionText)
@@ -38,7 +72,8 @@ export default class GameContainer extends Component {
 
     if (response && response.ok) {
       this.setState({
-        answerText: response.body.text,
+        outputText: response.body.text,
+        hasErrors: false,
         loadingAnswer: false
       })
     } else {
@@ -47,8 +82,8 @@ export default class GameContainer extends Component {
 
     if (hasErrors) {
       this.setState({
-        answerText: null,
-        errorMessage: 'An error occurred.',
+        outputText: 'An error occurred.',
+        hasErrors: true,
         loadingAnswer: false
       })
     }
@@ -56,7 +91,11 @@ export default class GameContainer extends Component {
 
   render () {
     return (
-      <Game {...this.state} onChangeValue={this.onChangeValue} onSubmit={this.onSubmit} />
+      <Game
+        {...this.state}
+        onChangeValue={this.onChangeValue}
+        onSubmit={this.onSubmit}
+      />
     )
   }
 }
