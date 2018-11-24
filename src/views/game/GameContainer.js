@@ -47,6 +47,7 @@ export default class GameContainer extends Component {
 
     if (hasErrors) {
       this.setState({
+        answerText: null,
         errorMessage: 'An error occurred.',
         loadingAnswer: false
       })

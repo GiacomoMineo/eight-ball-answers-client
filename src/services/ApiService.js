@@ -20,12 +20,11 @@ class ApiService extends singleton {
     return this.httpClient.send(url, method, requestOptions.headers, content, requestOptions.json)
   }
 
-  postQuestion () {
+  postQuestion (questionText) {
     const requestUrl = `${this.apiUrl}/api/game/question`
     const requestContent = {
+      questionText
     }
-
-    console.log(this.apiUrl)
 
     return this.request(requestUrl, HttpRequestMethods.post, requestContent)
   }
