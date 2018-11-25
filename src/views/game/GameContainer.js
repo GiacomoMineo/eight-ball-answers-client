@@ -42,7 +42,7 @@ export default class GameContainer extends Component {
 
     let response = null
     try {
-      response = await ApiService.postQuestion(questionText)
+      response = await ApiService.postQuestion(encodeURIComponent(questionText))
     } catch (err) {
       hasErrors = true
     }

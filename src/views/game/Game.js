@@ -27,10 +27,10 @@ class Game extends Component {
           <Typography component="h1" variant="h4" align="center" gutterBottom>
             Eight Ball Answers
           </Typography>
-          <Typography variant="body1" gutterBottom>
+          <Typography variant="body1" align="center" gutterBottom>
             Get instant advice on what's troubling you.
           </Typography>
-          <Typography variant="body1" gutterBottom className={classes.tip}>
+          <Typography variant="body1" align="center" gutterBottom className={classes.tip}>
             Make sure to ask a yes/no question to get the perfect answer.
           </Typography>
         </Grid>
@@ -42,7 +42,7 @@ class Game extends Component {
             value={questionText}
             onChange={onChangeValue}
             disabled={loadingAnswer}
-            maxLength="4"
+            maxLength="2"
           />
         </Grid>
         <Grid item xs={12}>
@@ -54,11 +54,9 @@ class Game extends Component {
             disabled={loadingAnswer}
           >
             {loadingAnswer ? (
-              <CircularProgress className={classes.buttonContent} color="secondary" />
+              <CircularProgress className={classes.loader} color="primary" size={20} />
             ) : (
-              <Typography variant="button" gutterBottom className={classes.buttonContent}>
-                Ask question
-              </Typography>
+              "Ask question"
             )}
           </Button>
         </Grid>
@@ -85,11 +83,9 @@ const styles = theme => ({
     width: formWidth
   },
   button: {
+    height: 40,
     width: formWidth,
     margin: theme.spacing.unit
-  },
-  buttonContent: {
-    height: 40
   },
   errorText: {
     color: 'red'
