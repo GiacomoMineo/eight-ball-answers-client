@@ -25,7 +25,7 @@ class Game extends Component {
       <Grid container className={classes.root} spacing={24} alignItems="center" justify="center" direction="column">
         <Grid item xs={12}>
           <Typography component="h1" variant="h4" align="center" gutterBottom>
-            Eight ball answers
+            Eight Ball Answers
           </Typography>
           <Typography variant="body1" gutterBottom>
             Get instant advice on what's troubling you.
