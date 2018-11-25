@@ -27,6 +27,12 @@ class Game extends Component {
           <Typography component="h1" variant="h4" align="center" gutterBottom>
             Eight ball answers
           </Typography>
+          <Typography variant="body1" gutterBottom>
+            Get instant advice on what's troubling you.
+          </Typography>
+          <Typography variant="body1" gutterBottom className={classes.tip}>
+            Make sure to ask a yes/no question to get the perfect answer.
+          </Typography>
         </Grid>
         <Grid item xs={12}>
           <TextField
@@ -36,6 +42,7 @@ class Game extends Component {
             value={questionText}
             onChange={onChangeValue}
             disabled={loadingAnswer}
+            maxLength="4"
           />
         </Grid>
         <Grid item xs={12}>

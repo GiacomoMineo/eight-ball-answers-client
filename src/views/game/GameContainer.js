@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Game from './Game'
 import ApiService from '../../services/ApiService'
-import moment from 'moment'
 
 export default class GameContainer extends Component {
   constructor (props) {
@@ -16,28 +15,6 @@ export default class GameContainer extends Component {
 
     this.onSubmit = this.onSubmit.bind(this)
     this.onChangeValue = this.onChangeValue.bind(this)
-
-    this.fetchStatistics = this.fetchStatistics.bind(this)
-  }
-
-  componentDidMount () {
-    this.fetchStatistics()
-  }
-
-  async fetchStatistics () {
-    let hasErrors = false
-
-    try {
-      const partitionDate = parseInt(moment().format('YYYYMMDD'))
-
-      const result = await ApiService.getDailyStats(partitionDate, partitionDate)
-      console.log(result)
-    } catch (err) {
-      hasErrors = true
-    }
-
-    if (hasErrors) {
-    }
   }
 
   onChangeValue (event) {
