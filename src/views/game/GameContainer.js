@@ -9,6 +9,7 @@ export default class GameContainer extends Component {
     this.state = {
       questionText: '',
       outputText: null,
+      assertion: null,
       loadingAnswer: false,
       hasErrors: false
     }
@@ -50,6 +51,7 @@ export default class GameContainer extends Component {
     if (response && response.ok) {
       this.setState({
         outputText: response.body.text,
+        assertion: response.body.assertion,
         hasErrors: false,
         loadingAnswer: false
       })

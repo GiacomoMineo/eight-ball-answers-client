@@ -31,41 +31,49 @@ class Statistics extends Component {
     const { statistics, loading, classes, selectedWeekIndex, weeksList, onWeekSelected } = this.props
 
     return (
-      <Grid container className={classes.root} spacing={24} alignItems="center" justify="center" direction="column">
+      <Grid container className={classes.root} alignItems="center" justify="center">
         <Grid item xs={12}>
           <Typography variant="h4" align="center" gutterBottom>
             Statistics
           </Typography>
         </Grid>
         <Grid item xs={12}>
+          <Grid container alignItems="center" justify="center" direction="row">
           {weeksList.map((week, weekIndex) => {
             return (
-              <Button key={week.index} variant="contained" color={weekIndex === selectedWeekIndex ? "primary" : "default"} className={classes.button} onClick={() => { onWeekSelected(weekIndex) }}>
-                {week.label}
-              </Button>
+              <Grid key={week.index}>
+                <Button variant="contained" color={weekIndex === selectedWeekIndex ? "primary" : "default"} className={classes.button} onClick={() => { onWeekSelected(weekIndex) }}>
+                  {week.label}
+                </Button>
+              </Grid>
             )
           })}
+          </Grid>
         </Grid>
-        <Grid item xs={12}>
-          {
-            loading ?
-            <CircularProgress color="primary" /> :
-            <ResponsiveContainer width={700} height={300}>
-              <BarChart data={statistics}
-                margin={{top: 20, right: 30, left: 20, bottom: 5}}>
-                <CartesianGrid strokeDasharray="3 3"/>
-                <XAxis dataKey="formattedDate"/>
-                <YAxis />
-                <Tooltip/>
-                <Legend />
-                <Bar dataKey="assertion.0" stackId="a" fill={red[500]} maxBarSize={40} />
-                <Bar dataKey="assertion.1" stackId="a" fill={yellow[500]} maxBarSize={40} />
-                <Bar dataKey="assertion.2" stackId="a" fill={green[500]} maxBarSize={40} >
-                  <LabelList dataKey="questionsCount" position="top" />
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
-          }
+        <Grid item xs={12} className={classes.chartContainer}>
+          <Grid container alignItems="center" justify="center" direction={loading ? "column" : "row"}>
+            <Grid item xs={12}>
+              {
+                loading ?
+                <CircularProgress color="primary" className={classes.loader} /> :
+                <ResponsiveContainer width={'100%'} height={250}>
+                  <BarChart data={statistics}
+                    margin={{top: 20, right: 30, left: 20, bottom: 5}}>
+                    <CartesianGrid strokeDasharray="3 3"/>
+                    <XAxis dataKey="formattedDate"/>
+                    <YAxis />
+                    <Tooltip/>
+                    <Legend />
+                    <Bar dataKey="assertion.0" stackId="a" fill={red[500]} maxBarSize={40} />
+                    <Bar dataKey="assertion.1" stackId="a" fill={yellow[500]} maxBarSize={40} />
+                    <Bar dataKey="assertion.2" stackId="a" fill={green[500]} maxBarSize={40} >
+                      <LabelList dataKey="questionsCount" position="top" />
+                    </Bar>
+                  </BarChart>
+                </ResponsiveContainer>
+              }
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     );
@@ -74,11 +82,16 @@ class Statistics extends Component {
 
 const styles = theme => ({
   root: {
-    marginTop: 40,
     display: 'flex'
   },
   button: {
     margin: theme.spacing.unit,
+  },
+  loader: {
+    marginTop: theme.spacing.unit * 4,
+  },
+  chartContainer: {
+    marginTop: theme.spacing.unit * 4
   }
 })
 

@@ -1,0 +1,16 @@
+.navItem {
+  padding: '8px 16px';
+  font-size: '0.875rem';
+  min-width: '64px';
+  box-sizing: 'border-box';
+  min-height: '36px';
+  font-weight: 500;
+  line-height: '1.4em';
+  border-radius: '4px';
+  text-transform: 'uppercase';
+  text-decoration: 'none'
+}
+.navItemSelected {
+  color: '#fff';
+  background-color: 'blue';
+}
