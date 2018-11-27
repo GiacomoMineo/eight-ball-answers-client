@@ -1,6 +1,7 @@
 language: node_js
 node_js: lts/*
-install: true
+install:
+- npm install
 script:
 - npm run build
 deploy:
@@ -8,3 +9,5 @@ deploy:
   provider: firebase
   token:
     secure: $FIREBASE_TOKEN
+  on:
+    branch: master
