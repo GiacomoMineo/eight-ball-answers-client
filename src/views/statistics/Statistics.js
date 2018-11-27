@@ -39,15 +39,15 @@ class Statistics extends Component {
         </Grid>
         <Grid item xs={12}>
           <Grid container alignItems="center" justify="center" direction="row">
-          {weeksList.map((week, weekIndex) => {
-            return (
-              <Grid key={week.index}>
-                <Button variant="contained" color={weekIndex === selectedWeekIndex ? "primary" : "default"} className={classes.button} onClick={() => { onWeekSelected(weekIndex) }}>
-                  {week.label}
-                </Button>
-              </Grid>
-            )
-          })}
+            {weeksList.map((week, weekIndex) => {
+              return (
+                <Grid key={week.index}>
+                  <Button variant="contained" color={weekIndex === selectedWeekIndex ? "primary" : "default"} className={classes.button} onClick={() => { onWeekSelected(weekIndex) }}>
+                    {week.label}
+                  </Button>
+                </Grid>
+              )
+            })}
           </Grid>
         </Grid>
         <Grid item xs={12} className={classes.chartContainer}>
@@ -55,22 +55,22 @@ class Statistics extends Component {
             <Grid item xs={12}>
               {
                 loading ?
-                <CircularProgress color="primary" className={classes.loader} /> :
-                <ResponsiveContainer width={'100%'} height={250}>
-                  <BarChart data={statistics}
-                    margin={{top: 20, right: 30, left: 20, bottom: 5}}>
-                    <CartesianGrid strokeDasharray="3 3"/>
-                    <XAxis dataKey="formattedDate"/>
-                    <YAxis />
-                    <Tooltip/>
-                    <Legend />
-                    <Bar dataKey="assertion.0" stackId="a" fill={red[500]} maxBarSize={40} />
-                    <Bar dataKey="assertion.1" stackId="a" fill={yellow[500]} maxBarSize={40} />
-                    <Bar dataKey="assertion.2" stackId="a" fill={green[500]} maxBarSize={40} >
-                      <LabelList dataKey="questionsCount" position="top" />
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
+                  <CircularProgress color="primary" className={classes.loader} /> :
+                  <ResponsiveContainer width={'100%'} height={250}>
+                    <BarChart data={statistics}
+                      margin={{ top: 20, right: 30, left: 20, bottom: 5 }}>
+                      <CartesianGrid strokeDasharray="3 3" />
+                      <XAxis dataKey="formattedDate" />
+                      <YAxis />
+                      <Tooltip />
+                      <Legend />
+                      <Bar dataKey="assertion.0" name="Negative" stackId="a" fill={red[500]} maxBarSize={40} />
+                      <Bar dataKey="assertion.1" name="Non-committal" stackId="a" fill={yellow[500]} maxBarSize={40} />
+                      <Bar dataKey="assertion.2" name="Affirmative" stackId="a" fill={green[500]} maxBarSize={40} >
+                        <LabelList dataKey="questionsCount" position="top" />
+                      </Bar>
+                    </BarChart>
+                  </ResponsiveContainer>
               }
             </Grid>
           </Grid>
