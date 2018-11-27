@@ -1,13 +1,20 @@
 import moment from 'moment'
+import 'moment/locale/en-gb'
 import singleton from 'singleton'
 
 class IntlService extends singleton {
-  getPartitionDate (date) {
+  constructor() {
+    super()
+
+    moment.locale('en-gb')
+  }
+
+  getPartitionDate(date) {
     const momentDate = date ? moment(date) : moment()
     return parseInt(momentDate.format('YYYYMMDD'))
   }
 
-  formatDate (date, format) {
+  formatDate(date, format) {
     if (date) {
       return moment(date).format(format)
     } else {
@@ -15,25 +22,25 @@ class IntlService extends singleton {
     }
   }
 
-  parseDate (dateString, format) {
+  parseDate(dateString, format) {
     return moment.utc(dateString, format).toDate()
   }
 
-  getStartUnitDate (inputDate, timeUnit) {
+  getStartUnitDate(inputDate, timeUnit) {
     return moment
       .utc(inputDate)
       .startOf(timeUnit)
       .toDate()
   }
 
-  getEndUnitDate (inputDate, timeUnit) {
+  getEndUnitDate(inputDate, timeUnit) {
     return moment
       .utc(inputDate)
       .endOf(timeUnit)
       .toDate()
   }
 
-  dateAdd (date, timeInterval, timeIntervalValue) {
+  dateAdd(date, timeInterval, timeIntervalValue) {
     return moment
       .utc(date)
       .add(timeIntervalValue, timeInterval)
