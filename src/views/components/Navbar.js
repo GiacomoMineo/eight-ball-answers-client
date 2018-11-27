@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import { NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import Grid from '@material-ui/core/Grid'
 import logo from './../../assets/images/logo.png'
 import './../../assets/styles/Navbar.css'
@@ -17,13 +17,15 @@ class Navbar extends Component {
 
     return (
       <Grid container className={classes.navbar} alignItems="center" direction="row">
+        <Link to="/">
           <img src={logo} className={classes.logo} alt="logo" />
-          <NavLink className={classes.navItem} to="/">
-            Game
-          </NavLink>
-          <NavLink className={classes.navItem} to="/statistics">
-            Statistics
-          </NavLink>
+        </Link>
+        <Link className={classes.navItem} to="/">
+          Ask
+        </Link>
+        <Link className={classes.navItem} to="/statistics">
+          Statistics
+        </Link>
       </Grid>
     )
   }
