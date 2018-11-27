@@ -27,15 +27,13 @@ class IntlService extends singleton {
   }
 
   getStartUnitDate(inputDate, timeUnit) {
-    return moment
-      .utc(inputDate)
+    return moment(inputDate)
       .startOf(timeUnit)
       .toDate()
   }
 
   getEndUnitDate(inputDate, timeUnit) {
-    return moment
-      .utc(inputDate)
+    return moment(inputDate)
       .endOf(timeUnit)
       .toDate()
   }
