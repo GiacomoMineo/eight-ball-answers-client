@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { withStyles } from '@material-ui/core/styles'
-import classNames from 'classnames'
 import Grid from '@material-ui/core/Grid'
 import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography'
 import CircularProgress from '@material-ui/core/CircularProgress'
-import { red, green, yellow } from '@material-ui/core/colors'
+import Output from './components/Output'
 
 class Game extends Component {
   static propTypes = {
@@ -21,7 +20,7 @@ class Game extends Component {
     onSubmit: PropTypes.func.isRequired
   }
 
-  render () {
+  render() {
     const { classes, questionText, outputText, assertion, loadingAnswer, hasErrors, onChangeValue, onSubmit } = this.props
 
     return (
@@ -66,21 +65,14 @@ class Game extends Component {
                 {loadingAnswer ? (
                   <CircularProgress className={classes.loader} color="primary" size={20} />
                 ) : (
-                  "Ask question"
-                )}
+                    "Ask question"
+                  )}
               </Button>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12}>
-          {outputText && (
-            <Grid container direction="row" alignItems="center" justify="center" className={classes.outputContainer}>
-                <span className={classNames(classes.assertion, classes[`assertion${assertion}`])} />
-                <Typography variant="headline" align="center" className={classNames(classes.outputText, hasErrors ? classes.errorText : undefined)}>
-                  {outputText}
-                </Typography>
-            </Grid>
-          )}
+          <Output visible={!!outputText} text={outputText} assertion={assertion} hasErrors={hasErrors} />
         </Grid>
       </Grid>
     )
@@ -100,34 +92,9 @@ const styles = theme => ({
     marginTop: theme.spacing.unit * 2,
     height: 40
   },
-  outputContainer: {
-    marginTop: theme.spacing.unit * 4,
-  },
-  outputText: {
-    fontWeight: '300'
-  },
-  errorText: {
-    color: 'red'
-  },
   tip: {
     fontStyle: 'italic',
     fontSize: '12px'
-  },
-  assertion: {
-    width: '16px',
-    height: '16px',
-    borderRadius: '16px',
-    marginRight: theme.spacing.unit,
-    display: 'inline-block'
-  },
-  assertion0: {
-    backgroundColor: red[500]
-  },
-  assertion1: {
-    backgroundColor: yellow[500]
-  },
-  assertion2: {
-    backgroundColor: green[500]
   }
 })
 

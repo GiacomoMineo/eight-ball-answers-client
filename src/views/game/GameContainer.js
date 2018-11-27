@@ -3,7 +3,7 @@ import Game from './Game'
 import ApiService from '../../services/ApiService'
 
 export default class GameContainer extends Component {
-  constructor (props) {
+  constructor(props) {
     super(props)
 
     this.state = {
@@ -18,11 +18,11 @@ export default class GameContainer extends Component {
     this.onChangeValue = this.onChangeValue.bind(this)
   }
 
-  onChangeValue (event) {
+  onChangeValue(event) {
     this.setState({ questionText: event.target.value })
   }
 
-  async onSubmit () {
+  async onSubmit() {
     let hasErrors = false
 
     const { questionText } = this.state
@@ -30,6 +30,7 @@ export default class GameContainer extends Component {
     if (!questionText) {
       this.setState({
         outputText: 'Please insert a question.',
+        assertion: null,
         hasErrors: true
       })
       return
@@ -37,6 +38,7 @@ export default class GameContainer extends Component {
 
     this.setState({
       outputText: null,
+      assertion: null,
       hasErrors: false,
       loadingAnswer: true
     })
@@ -68,7 +70,7 @@ export default class GameContainer extends Component {
     }
   }
 
-  render () {
+  render() {
     return (
       <Game
         {...this.state}
